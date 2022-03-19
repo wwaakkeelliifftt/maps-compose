@@ -83,6 +83,8 @@ dependencies {
     // + ext
     implementation "androidx.room:room-ktx:2.4.2"
 
+    // permission request library for compose
+    implementation "com.google.accompanist:accompanist-permissions:0.24.4-alpha"
 
 
 
