@@ -29,6 +29,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MapscomposeTheme {
+
                 val permissionState = rememberPermissionState(
                     permission = Manifest.permission.ACCESS_FINE_LOCATION
                 )

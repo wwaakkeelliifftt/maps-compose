@@ -7,6 +7,9 @@ data class MapState(
     val properties: MapProperties = MapProperties(
         isMyLocationEnabled = true
     ),
-    val isFalloutMap: Boolean = false
+    val isFalloutMap: Boolean = false,
+    val isCobaltMap: Boolean = false,
+    val isRedRoads: Boolean = false,
+    val isTrafficState: Boolean = false
 )
 

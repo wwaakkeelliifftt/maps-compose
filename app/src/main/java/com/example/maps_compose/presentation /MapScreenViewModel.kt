@@ -21,9 +21,45 @@ class MapScreenViewModel @Inject constructor(): ViewModel() {
                     properties = state.properties.copy(
                         mapStyleOptions = if (state.isFalloutMap) {
                             null
-                        } else MapStyleOptions(Cobalt.json),
+                        } else MapStyleOptions(Fallout.json),
                     ),
-                    isFalloutMap = !state.isFalloutMap
+                    isFalloutMap = !state.isFalloutMap,
+                    isCobaltMap = false,
+                    isRedRoads = false
+                )
+            }
+            MapEvent.ToggleCobaltMap -> {
+                state = state.copy(
+                    properties = state.properties.copy(
+                        mapStyleOptions = if (state.isCobaltMap) {
+                            null
+                        } else MapStyleOptions(Cobalt.json)
+                    ),
+                    isFalloutMap = false,
+                    isRedRoads = false,
+                    isCobaltMap = !state.isCobaltMap
+                )
+            }
+            MapEvent.ToggleRedRoadsMap -> {
+                state = state.copy(
+                    properties = state.properties.copy(
+                        mapStyleOptions = if (state.isRedRoads) {
+                            null
+                        } else MapStyleOptions(RedRoads.json),
+                        isTrafficEnabled = false
+                    ),
+                    isFalloutMap = false,
+                    isCobaltMap = false,
+                    isRedRoads = !state.isRedRoads,
+                    isTrafficState = false
+                )
+            }
+            MapEvent.Traffic -> {
+                state = state.copy(
+                    properties = state.properties.copy(
+                        isTrafficEnabled = !state.isTrafficState
+                    ),
+                    isTrafficState = !state.isTrafficState
                 )
             }
         }
