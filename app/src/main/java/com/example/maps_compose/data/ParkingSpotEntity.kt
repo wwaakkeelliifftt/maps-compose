@@ -3,6 +3,7 @@ package com.example.maps_compose.data
 import androidx.compose.ui.graphics.Color
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.maps_compose.domain.model.ParkingSpot
 
 @Entity
 data class ParkingSpotEntity(
@@ -19,4 +20,6 @@ data class ParkingSpotEntity(
     fun changeColor(newColor: Color): ParkingSpotEntity {
         return this.copy(spotColor = newColor)
     }
+
 }
+

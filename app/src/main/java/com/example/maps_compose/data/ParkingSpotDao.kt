@@ -11,7 +11,7 @@ interface ParkingSpotDao {
     suspend fun insertParkingSpot(spot: ParkingSpotEntity)
 
     @Update
-    suspend fun updateParkingSpotColor(spot: ParkingSpotEntity)
+    suspend fun updateParkingSpot(spot: ParkingSpotEntity)
 
     @Delete
     suspend fun deleteParkingSpot(spot: ParkingSpotEntity)

@@ -4,13 +4,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.example.maps_compose.domain.repository.ParkingSpotRepository
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.maps.android.compose.MapProperties
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class MapScreenViewModel @Inject constructor(): ViewModel() {
+class MapScreenViewModel @Inject constructor(
+    private val repository: ParkingSpotRepository
+): ViewModel() {
 
     var state by mutableStateOf(MapState())
 
