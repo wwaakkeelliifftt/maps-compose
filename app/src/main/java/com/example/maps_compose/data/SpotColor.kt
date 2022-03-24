@@ -1,14 +1,14 @@
 package com.example.maps_compose.data
 
-import androidx.compose.ui.graphics.Color
-
-object SpotColor {
-    val orange = Color(0xFFFF6122)
-    val purple = Color(0xFF982AE6)
-    val blue = Color(0xFF0990FC)
-    val green = Color(0xFF24A729)
-    val yellow = Color(0xFFF7DE07)
-    val aquamarine = Color(0xFF1EF0F0)
-    val pink = Color(0xFFF865E9)
-    val red = Color(0xFFFD1313)
-}
+val SPOT_COLOR_MAP = mapOf(
+    "RED" to 0.0f,
+    "ORANGE" to 30.0f,
+    "YELLOW" to 60.0f,
+    "GREEN" to 120.0f,
+    "CYAN" to 180.0f,
+    "AZURE" to 210.0f,
+    "BLUE" to 240.0f,
+    "VIOLET" to 270.0f,
+    "MAGENTA" to 300.0f,
+    "ROSE" to 330.0f
+)

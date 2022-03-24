@@ -1,25 +1,16 @@
 package com.example.maps_compose.data
 
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.maps_compose.domain.model.ParkingSpot
 
 @Entity
 data class ParkingSpotEntity(
-    val lat: Double,
-    val lng: Double,
-    var spotName: String,
-    var spotColor: Color,
-    @PrimaryKey val id: Int? = null
-) {
-    fun changeName(newName: String): ParkingSpotEntity {
-        return this.copy(spotName = newName)
-    }
-
-    fun changeColor(newColor: Color): ParkingSpotEntity {
-        return this.copy(spotColor = newColor)
-    }
-
-}
+    @PrimaryKey val id: Int? = null,
+    val latitude: Double = 0.0,
+    val longitude: Double = 0.0,
+    var spotName: String = "",
+    var spotColor: Float = 0.0f
+)
 

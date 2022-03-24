@@ -19,4 +19,7 @@ interface ParkingSpotDao {
     @Query("SELECT * FROM parkingspotentity")
     fun getAllParkingSpots(): Flow<List<ParkingSpotEntity>>
 
+    @Query("DELETE FROM parkingspotentity")
+    suspend fun deleteAllParkingSpots()
+
 }

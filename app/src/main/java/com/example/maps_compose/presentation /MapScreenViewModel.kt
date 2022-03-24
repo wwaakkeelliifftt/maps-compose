@@ -2,12 +2,18 @@ package com.example.maps_compose.presentation
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.maps_compose.data.SPOT_COLOR_MAP
+import com.example.maps_compose.domain.model.ParkingSpot
 import com.example.maps_compose.domain.repository.ParkingSpotRepository
 import com.google.android.gms.maps.model.MapStyleOptions
-import com.google.maps.android.compose.MapProperties
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,9 +23,23 @@ class MapScreenViewModel @Inject constructor(
 
     var state by mutableStateOf(MapState())
 
+    var spotDetailScreenVisible by mutableStateOf(false)
+    var spotNameState by mutableStateOf("")
+    var spotColorState by mutableStateOf(0.0f)
+
+    init {
+        viewModelScope.launch {
+            repository.getAllParkingSpots().collectLatest { spots ->
+                state = state.copy(
+                    parkingSpots = spots
+                )
+            }
+        }
+    }
+
     fun onEvent(event: MapEvent) {
         when (event) {
-            MapEvent.ToggleFalloutMap -> {
+            is MapEvent.ToggleFalloutMap -> {
                 state = state.copy(
                     properties = state.properties.copy(
                         mapStyleOptions = if (state.isFalloutMap) {
@@ -31,7 +51,7 @@ class MapScreenViewModel @Inject constructor(
                     isRedRoads = false
                 )
             }
-            MapEvent.ToggleCobaltMap -> {
+            is MapEvent.ToggleCobaltMap -> {
                 state = state.copy(
                     properties = state.properties.copy(
                         mapStyleOptions = if (state.isCobaltMap) {
@@ -43,7 +63,7 @@ class MapScreenViewModel @Inject constructor(
                     isCobaltMap = !state.isCobaltMap
                 )
             }
-            MapEvent.ToggleRedRoadsMap -> {
+            is MapEvent.ToggleRedRoadsMap -> {
                 state = state.copy(
                     properties = state.properties.copy(
                         mapStyleOptions = if (state.isRedRoads) {
@@ -57,7 +77,7 @@ class MapScreenViewModel @Inject constructor(
                     isTrafficState = false
                 )
             }
-            MapEvent.Traffic -> {
+            is MapEvent.Traffic -> {
                 state = state.copy(
                     properties = state.properties.copy(
                         isTrafficEnabled = !state.isTrafficState
@@ -65,6 +85,38 @@ class MapScreenViewModel @Inject constructor(
                     isTrafficState = !state.isTrafficState
                 )
             }
+
+            is MapEvent.OnMapLongClick -> {
+                viewModelScope.launch {
+                    repository.insertParkingSpot(
+                        ParkingSpot(
+                            lat = event.latLng.latitude,
+                            lng = event.latLng.longitude
+                        )
+                    )
+                }
+            }
+            is MapEvent.OnInfoWindowLongClick -> {
+                viewModelScope.launch {
+                    repository.deleteParkingSpot(event.spot)
+                }
+            }
+            is MapEvent.OnUpdateSpotClick -> {
+                viewModelScope.launch {
+                    repository.updateParkingSpot(
+                        event.spot.copy(
+                            spotColor = spotColorState,
+                            spotName = spotNameState
+                        )
+                    )
+                }
+            }
+            is MapEvent.DeleteAllSpots -> {
+                viewModelScope.launch {
+                    repository.deleteAllParkingSpots()
+                }
+            }
+
         }
     }
 }

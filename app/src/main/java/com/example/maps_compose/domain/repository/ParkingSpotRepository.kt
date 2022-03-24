@@ -13,4 +13,5 @@ interface ParkingSpotRepository {
 
     fun getAllParkingSpots(): Flow<List<ParkingSpot>>
 
+    suspend fun deleteAllParkingSpots()
 }

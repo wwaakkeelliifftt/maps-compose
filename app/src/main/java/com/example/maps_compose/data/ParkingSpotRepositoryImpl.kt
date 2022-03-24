@@ -29,4 +29,8 @@ class ParkingSpotRepositoryImpl @Inject constructor(
             spots.map { it.toParkingSpot() }
         }
     }
+
+    override suspend fun deleteAllParkingSpots() {
+        dao.deleteAllParkingSpots()
+    }
 }
