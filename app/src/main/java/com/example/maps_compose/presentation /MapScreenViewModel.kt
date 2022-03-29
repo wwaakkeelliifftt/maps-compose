@@ -86,6 +86,14 @@ class MapScreenViewModel @Inject constructor(
                 )
             }
 
+            is MapEvent.OpenDetailSpotWindow -> {
+                viewModelScope.launch {
+                    spotDetailScreenVisible = true
+                    spotNameState = event.spot.spotName
+                    spotColorState = event.spot.spotColor
+                }
+            }
+
             is MapEvent.OnMapLongClick -> {
                 viewModelScope.launch {
                     repository.insertParkingSpot(
@@ -110,6 +118,7 @@ class MapScreenViewModel @Inject constructor(
                         )
                     )
                 }
+                spotDetailScreenVisible = false
             }
             is MapEvent.DeleteAllSpots -> {
                 viewModelScope.launch {

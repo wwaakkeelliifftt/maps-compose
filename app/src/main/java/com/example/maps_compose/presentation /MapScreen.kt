@@ -79,7 +79,6 @@ fun MapScreen(
                         onInfoWindowClick = {
                             currentSpot = spot
                             viewModel.onEvent(MapEvent.OpenDetailSpotWindow(spot = spot))
-                            viewModel.spotDetailScreenVisible = true
                         },
                         onInfoWindowLongClick = {
                             viewModel.onEvent(MapEvent.OnInfoWindowLongClick(spot))

@@ -106,7 +106,6 @@ fun SpotDetainScreen(
                 Button(
                     onClick = {
                         viewModel.onEvent(MapEvent.OnUpdateSpotClick(spot = spot))
-                        viewModel.spotDetailScreenVisible = false
                     },
                     modifier = Modifier
                         .padding(8.dp)
